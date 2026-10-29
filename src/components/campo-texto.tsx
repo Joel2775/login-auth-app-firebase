@@ -33,13 +33,13 @@ export function CampoTexto({
   const [claveVisible, setClaveVisible] = useState(false);
   const desplazamiento = useSharedValue(0);
   const estiloSacudida = useAnimatedStyle(() => ({
-    transform: [{ translateX: desplazamiento.value }],
+    transform: [{ translateX: desplazamiento.get() }],
   }));
 
   useEffect(() => {
     if (disparadorSacudida === 0) return;
 
-    desplazamiento.value = withSequence(
+    desplazamiento.set(withSequence(
       withTiming(-10, { duration: 55 }),
       withTiming(10, { duration: 55 }),
       withTiming(-8, { duration: 55 }),
@@ -47,7 +47,7 @@ export function CampoTexto({
       withTiming(-4, { duration: 55 }),
       withTiming(4, { duration: 55 }),
       withTiming(0, { duration: 55 }),
-    );
+    ));
   }, [disparadorSacudida, desplazamiento]);
  
   // El color del borde comunica el estado: error > foco > reposo.
